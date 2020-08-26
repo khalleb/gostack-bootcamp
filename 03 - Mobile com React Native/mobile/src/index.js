@@ -11,7 +11,7 @@ import {
 import api from "./services/api";
 
 export default function App() {
-  const [repositories, setRepositories] = useState();
+  const [repositories, setRepositories] = useState([]);
 
   useEffect(() => {
     api.get("repositories").then((response) => {
