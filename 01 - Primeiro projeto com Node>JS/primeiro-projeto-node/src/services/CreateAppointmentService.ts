@@ -1,6 +1,5 @@
 import Appointment from '../models/Appointment';
 import AppointmentRepository from '../repositories/AppointmentsRepository';
-import appointmentRouter from '../routes/appointments.routes';
 import { startOfHour } from "date-fns";
 
 
