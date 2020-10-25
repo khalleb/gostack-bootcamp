@@ -6,9 +6,9 @@ import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import User from '../infra/typeorm/entities/User';
 
 interface IRequest {
-  name: string,
-  email: string,
-  password: string,
+  name: string;
+  email: string;
+  password: string;
 }
 
 @injectable()
@@ -19,7 +19,7 @@ class CreateUserService {
 
     @inject('HashProvider')
     private hashProvider: IHashProvider,
-    ) { }
+  ) {}
 
   public async execute({ name, email, password }: IRequest): Promise<User> {
     const checkUserExists = await this.usersRepository.findByEmail(email);
@@ -33,7 +33,7 @@ class CreateUserService {
       name,
       email,
       password: hashPassWord,
-    })
+    });
     return user;
   }
 }

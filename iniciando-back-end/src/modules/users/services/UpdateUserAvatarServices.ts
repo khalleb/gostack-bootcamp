@@ -1,11 +1,11 @@
 import path from 'path';
 import uploadConfig from '@config/upload';
 import { injectable, inject } from 'tsyringe';
-import User from '../infra/typeorm/entities/User';
 import AppError from '@shared/errors/AppError';
-import IUsersRepository from '../repositories/IUsersRepository';
 import fs from 'fs';
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
+import IUsersRepository from '../repositories/IUsersRepository';
+import User from '../infra/typeorm/entities/User';
 
 interface IRequest {
   user_id: string;
@@ -14,17 +14,15 @@ interface IRequest {
 
 @injectable()
 class UpdateUserAvatarServices {
-
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
 
     @inject('StorageProvider')
-    private storageProvider: IStorageProvider
-  ) { }
+    private storageProvider: IStorageProvider,
+  ) {}
 
   public async execute({ user_id, avatarFileName }: IRequest): Promise<User> {
-
     const user = await this.usersRepository.findById(user_id);
     if (!user) {
       throw new AppError('only authenticated users can change avatar', 401);

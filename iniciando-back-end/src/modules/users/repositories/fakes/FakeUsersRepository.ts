@@ -1,22 +1,22 @@
 import { uuid } from 'uuidv4';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
-import User from "../../infra/typeorm/entities/User";
+import User from '../../infra/typeorm/entities/User';
 
 class FakeUsersRepository implements IUsersRepository {
   private users: User[] = [];
 
   public async findById(id: string): Promise<User | undefined> {
     const findUser = this.users.find(user => user.id === id);
-    return findUser
+    return findUser;
   }
 
   public async findByEmail(email: string): Promise<User | undefined> {
-    let findUser = undefined;
-    if(this.users){
+    let findUser;
+    if (this.users) {
       findUser = this.users.find(user => user.email === email);
     }
-    return findUser
+    return findUser;
   }
 
   public async create(userData: ICreateUserDTO): Promise<User> {
@@ -31,7 +31,6 @@ class FakeUsersRepository implements IUsersRepository {
     this.users[findIndex] = user;
     return user;
   }
-
 }
 
 export default FakeUsersRepository;

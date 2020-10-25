@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 import AuthenticateUserServices from '@modules/users/services/AuthenticateUserServices';
 
 export default class SessionsController {
-
   public async create(request: Request, response: Response): Promise<Response> {
     const { email, password } = request.body;
 
@@ -11,7 +10,7 @@ export default class SessionsController {
     const { user, token } = await authenticateUser.execute({
       email,
       password,
-    })
+    });
     return response.json({ user, token });
   }
 }
