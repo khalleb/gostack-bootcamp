@@ -1,6 +1,7 @@
 import { sign } from 'jsonwebtoken';
-import { injectable, inject } from 'tsyringe';
 import authConfig from '@config/auth';
+import { injectable, inject } from 'tsyringe';
+
 import AppError from '@shared/errors/AppError';
 import IUsersRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
@@ -38,10 +39,10 @@ class AuthenticateUserServices {
     if (!passwordMatched) {
       throw new AppError('Incorrect email/password combination', 401);
     }
-    console.log(user);
-    const token = sign({}, authConfig.jwt.secret, {
-      subject: user.id,
-      expiresIn: authConfig.jwt.expiresIn,
+    const { secret, expiresIn } = authConfig.jwt;
+    const token = sign({}, secret, {
+      subject: user?.id,
+      expiresIn,
     });
 
     return {

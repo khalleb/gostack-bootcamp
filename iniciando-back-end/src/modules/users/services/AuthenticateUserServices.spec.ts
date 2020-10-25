@@ -8,7 +8,6 @@ describe('AuthenticateUser', () => {
   it('should be able to authenticate', async () => {
     const fakeusersRepository = new FakeUsersRepository();
     const fakeHashProvider = new FakeHashProvider();
-
     const createUser = new CreateUserService(
       fakeusersRepository,
       fakeHashProvider,
@@ -17,7 +16,6 @@ describe('AuthenticateUser', () => {
       fakeusersRepository,
       fakeHashProvider,
     );
-
     const user = await createUser.execute({
       name: 'John Doe',
       email: 'johndoe@example.com',
@@ -28,7 +26,6 @@ describe('AuthenticateUser', () => {
       email: 'johndoe@example.com',
       password: '123456',
     });
-
     expect(response).toHaveProperty('token');
     expect(response.user).toEqual(user);
   });
@@ -36,13 +33,10 @@ describe('AuthenticateUser', () => {
   it('should be able to authenticate with non existirng user', async () => {
     const fakeusersRepository = new FakeUsersRepository();
     const fakeHashProvider = new FakeHashProvider();
-
-    // const createUser = new CreateUserService(fakeusersRepository, fakeHashProvider);
     const authenticateUser = new AuthenticateUserServices(
       fakeusersRepository,
       fakeHashProvider,
     );
-
     expect(
       authenticateUser.execute({
         email: 'johndoe@example.com',
@@ -54,7 +48,6 @@ describe('AuthenticateUser', () => {
   it('should not be able to authenticate with wrong password', async () => {
     const fakeusersRepository = new FakeUsersRepository();
     const fakeHashProvider = new FakeHashProvider();
-
     const createUser = new CreateUserService(
       fakeusersRepository,
       fakeHashProvider,
@@ -63,13 +56,11 @@ describe('AuthenticateUser', () => {
       fakeusersRepository,
       fakeHashProvider,
     );
-
     await createUser.execute({
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123456',
     });
-
     expect(
       authenticateUser.execute({
         email: 'johndoe@example.com',
